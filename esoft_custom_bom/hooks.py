@@ -21,6 +21,20 @@ app_license = "mit"
 # 	}
 # ]
 
+
+
+app_include_py = [
+    "esoft_custom_bom.custom_bom",
+    "esoft_custom_bom.patches.bom_validate"
+]
+
+
+
+override_whitelisted_methods = {
+    "erpnext.manufacturing.doctype.bom_creator.bom_creator.create_boms": "esoft_custom_bom.custom_bom.create_boms"
+}
+
+
 # Includes in <head>
 # ------------------
 
@@ -138,11 +152,11 @@ override_doctype_class = {
 # Hook on document methods and events
 
 # doc_events = {
-# 	"*": {
-# 		"on_update": "method",
-# 		"on_cancel": "method",
-# 		"on_trash": "method"
-# 	}
+	# "*": {
+	# 	"on_update": "method",
+	# 	"on_cancel": "method",
+	# 	"on_trash": "method"
+	# }
 # }
 
 # Scheduled Tasks
@@ -174,9 +188,12 @@ override_doctype_class = {
 # Overriding Methods
 # ------------------------------
 #
+
 # override_whitelisted_methods = {
-# 	"frappe.desk.doctype.event.event.get_events": "esoft_custom_bom.event.get_events"
+#     "erpnext.manufacturing.doctype.bom_creator.bom_creator.create_boms":
+#         "esoft_custom_bom.custom_bom.create_boms"
 # }
+
 #
 # each overriding function accepts a `data` argument;
 # generated from the base implementation of the doctype dashboard,
