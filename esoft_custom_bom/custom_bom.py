@@ -8,8 +8,37 @@ from erpnext.manufacturing.doctype.bom_creator.bom_creator import (
 import esoft_custom_bom.patches.bom_validate 
 
 class CustomBOM(BOMCreator):
+    def validate_duplicate_item(self):
+        # If same items added multiple times under same parent, raise error
+        item_map = {}
+        for row in self.items:
+            if not row.fg_reference_id:
+                continue
+
+            key = (row.item_code, row.fg_reference_id)
+            if key in item_map:
+                # FIX: Handle case where parent is the root document (self.name)
+                parent_item_code = None
+                if row.fg_reference_id == self.name:
+                    parent_item_code = self.item_code
+                else:
+                    # Search for parent item code in the items table
+                    parent_item_code = next(
+                        (item.item_code for item in self.items if item.name == row.fg_reference_id),
+                        self.item_code # fallback if not found
+                    )
+
+                frappe.throw(
+                    frappe._(
+                        "Item {0} added multiple times under the same parent item {1} at rows {2} and {3}"
+                    ).format(frappe.bold(row.item_code), frappe.bold(parent_item_code), item_map[key], row.idx),
+                    title=frappe._("Duplicate Item Under Same Parent"),
+                )
+            else:
+                item_map[key] = row.idx
+
     def create_boms(self):
-        # We call the standard create_boms but the create_bom 
+        # We call the standard create_boms but the create_bom
         # (singular) method called inside will be our overridden one.
         super().create_boms()
 
@@ -78,9 +107,69 @@ class CustomBOM(BOMCreator):
         production_item_wise_rm[(row.item_code, row.name)].bom_no = bom.name
 
 @frappe.whitelist()
+def fix_duplicates(bom_creator=None):
+    if not bom_creator:
+        bom_creator = "Sigma Fry Pan 2.6 mm 11\" / 22 cm (IND) test"
+        
+    doc = frappe.get_doc("BOM Creator", bom_creator)
+    item_map = {}
+    to_remove = []
+    
+    for row in doc.items:
+        key = (row.item_code, row.fg_reference_id)
+        if key in item_map:
+            # Add qty to existing row
+            existing_row = item_map[key]
+            existing_row.qty += row.qty
+            to_remove.append(row)
+            print(f"Merging row {row.idx} into row {existing_row.idx} (New Qty: {existing_row.qty})")
+        else:
+            item_map[key] = row
+            
+    if to_remove:
+        for row in to_remove:
+            doc.remove(row)
+        doc.save()
+        frappe.db.commit()
+        print(f"Fixed {len(to_remove)} duplicate(s). You can now submit the document.")
+    else:
+        print("No duplicates found.")
+
+@frappe.whitelist()
 def create_boms(bom_creator):
     doc = frappe.get_doc("BOM Creator", bom_creator)
-    # Ensure we use the custom class logic
-    custom_doc = CustomBOM()
-    custom_doc.__dict__.update(doc.__dict__)
-    return custom_doc.create_boms()
+    # Since BOM Creator class is overridden in hooks, doc is already a CustomBOM instance
+    return doc.create_boms()
+
+@frappe.whitelist()
+def fix_tree(bom_creator=None):
+    if not bom_creator:
+        bom_creator = "Sigma Fry Pan 2.6 mm 11\" / 22 cm (IND) testmain2"
+    doc = frappe.get_doc("BOM Creator", bom_creator)
+    changed = False
+    for row in doc.items:
+        if row.fg_item == doc.item_code:
+            if row.parent_row_no:
+                row.parent_row_no = ""
+                changed = True
+            continue
+        parent_candidates = [r for r in doc.items if r.item_code == row.fg_item]
+        if not parent_candidates:
+            continue
+        valid_candidates = [r for r in parent_candidates if r.idx < row.idx]
+        if not valid_candidates:
+            valid_candidates = parent_candidates
+        parent_row = valid_candidates[0]
+        if str(row.parent_row_no) != str(parent_row.idx):
+            row.parent_row_no = str(parent_row.idx)
+            row.fg_reference_id = parent_row.name
+            changed = True
+    if changed:
+        if doc.docstatus != 0:
+            doc.db_set("docstatus", 0)
+        doc.flags.ignore_validate = True
+        doc.save(ignore_version=True)
+        frappe.db.commit()
+        print(f"Fixed tree for {doc.name}")
+    else:
+        print("No issues found in tree.")

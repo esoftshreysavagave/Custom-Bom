@@ -151,13 +151,11 @@ override_doctype_class = {
 # ---------------
 # Hook on document methods and events
 
-# doc_events = {
-	# "*": {
-	# 	"on_update": "method",
-	# 	"on_cancel": "method",
-	# 	"on_trash": "method"
-	# }
-# }
+doc_events = {
+    "BOM": {
+        "validate": "esoft_custom_bom.bom_handler.validate_sub_assemblies"
+    }
+}
 
 # Scheduled Tasks
 # ---------------
