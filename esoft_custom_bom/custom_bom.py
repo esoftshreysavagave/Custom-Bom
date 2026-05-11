@@ -38,7 +38,7 @@ class CustomBOM(BOMCreator):
                 item_map[key] = row.idx
 
     def create_boms(self):
-        # We call the standard create_boms but the create_bom
+        # We call the standard create_boms but the create_bom 
         # (singular) method called inside will be our overridden one.
         super().create_boms()
 
@@ -95,6 +95,7 @@ class CustomBOM(BOMCreator):
         # Use the flag to bypass the "Must be submitted" validation
         frappe.flags.allow_draft_subassembly_bom = True
         try:
+            # Our custom hook in bom_handler.py will ALSO run here to fix any missing links!
             bom.insert(ignore_permissions=True)
             # We do NOT call bom.submit() here, keeping it in Draft
         except Exception:
@@ -107,9 +108,9 @@ class CustomBOM(BOMCreator):
         production_item_wise_rm[(row.item_code, row.name)].bom_no = bom.name
 
 @frappe.whitelist()
-def fix_duplicates(bom_creator=None):
+def fix_duplicates(bom_creator):
     if not bom_creator:
-        bom_creator = "Sigma Fry Pan 2.6 mm 11\" / 22 cm (IND) test"
+        frappe.throw(_("Please provide a BOM Creator Name"))
         
     doc = frappe.get_doc("BOM Creator", bom_creator)
     item_map = {}
@@ -138,13 +139,15 @@ def fix_duplicates(bom_creator=None):
 @frappe.whitelist()
 def create_boms(bom_creator):
     doc = frappe.get_doc("BOM Creator", bom_creator)
-    # Since BOM Creator class is overridden in hooks, doc is already a CustomBOM instance
-    return doc.create_boms()
+    # Ensure we use the custom class logic
+    custom_doc = CustomBOM()
+    custom_doc.__dict__.update(doc.__dict__)
+    return custom_doc.create_boms()
 
 @frappe.whitelist()
-def fix_tree(bom_creator=None):
+def fix_tree(bom_creator):
     if not bom_creator:
-        bom_creator = "Sigma Fry Pan 2.6 mm 11\" / 22 cm (IND) testmain2"
+        frappe.throw(_("Please provide a BOM Creator Name"))
     doc = frappe.get_doc("BOM Creator", bom_creator)
     changed = False
     for row in doc.items:

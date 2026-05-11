@@ -151,9 +151,17 @@ override_doctype_class = {
 # ---------------
 # Hook on document methods and events
 
+# doc_events = {
+	# "*": {
+	# 	"on_update": "method",
+	# 	"on_cancel": "method",
+	# 	"on_trash": "method"
+	# }
+# }
 doc_events = {
     "BOM": {
-        "validate": "esoft_custom_bom.bom_handler.validate_sub_assemblies"
+        "before_validate": "esoft_custom_bom.hooks_handlers.bom.before_validate",
+        "after_insert": "esoft_custom_bom.hooks_handlers.bom.after_insert"
     }
 }
 
@@ -261,4 +269,3 @@ doc_events = {
 # ------------
 # List of apps whose translatable strings should be excluded from this app's translations.
 # ignore_translatable_strings_from = []
-
