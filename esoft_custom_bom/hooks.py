@@ -158,6 +158,12 @@ override_doctype_class = {
 	# 	"on_trash": "method"
 	# }
 # }
+doc_events = {
+    "BOM": {
+        "before_validate": "esoft_custom_bom.hooks_handlers.bom.before_validate",
+        "after_insert": "esoft_custom_bom.hooks_handlers.bom.after_insert"
+    }
+}
 
 # Scheduled Tasks
 # ---------------
@@ -263,4 +269,3 @@ override_doctype_class = {
 # ------------
 # List of apps whose translatable strings should be excluded from this app's translations.
 # ignore_translatable_strings_from = []
-
