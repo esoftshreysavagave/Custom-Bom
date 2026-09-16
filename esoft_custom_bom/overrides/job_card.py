@@ -65,7 +65,20 @@ class CustomJobCard(JobCard):
 		if not wo.required_items:
 			return
 
-		data = self.get_current_operation_data()
+		filters = {
+			"docstatus": 1,
+			"work_order": self.work_order,
+			"operation_id": self.operation_id,
+			"is_corrective_job_card": 0,
+		}
+		if self.name:
+			filters["name"] = ("!=", self.name)
+
+		data = frappe.get_all(
+			"Job Card",
+			fields=[{"SUM": "total_completed_qty", "as": "completed_qty"}],
+			filters=filters,
+		)
 		already_completed = flt(data[0].completed_qty) if data and len(data) > 0 else 0.0
 		total_operation_completed = already_completed + flt(self.total_completed_qty)
 
@@ -73,6 +86,10 @@ class CustomJobCard(JobCard):
 
 		for item in wo.required_items:
 			if not item.required_qty:
+				continue
+
+			# If item is assigned to a specific operation, only validate if it matches current operation
+			if item.operation and item.operation != self.operation:
 				continue
 
 			ratio = flt(item.required_qty) / flt(wo.qty)

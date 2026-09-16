@@ -34,7 +34,7 @@ def validate_stock_entry_upstream_qty(doc, method=None):
 			requested_by_item[row.item_code] = requested_by_item.get(row.item_code, 0.0) + flt(row.qty)
 
 	for item_code, requested_qty in requested_by_item.items():
-		avail = get_available_upstream_qty(wo, item_code)
+		avail = get_available_upstream_qty(wo, item_code, for_update=True)
 		if not avail:
 			# Not a subassembly produced by an upstream Work Order in this Production Plan
 			continue
