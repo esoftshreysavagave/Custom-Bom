@@ -67,8 +67,7 @@ def _parse_filters(kwargs):
 # a. Production Plan KPIs
 # ---------------------------------------------------------------------------
 
-@frappe.whitelist()
-def get_production_plan_kpis(**kwargs):
+def get_standard_get_production_plan_kpis(**kwargs):
     f = _parse_filters(kwargs)
     where, vals = _plan_conditions(f)
 
@@ -115,8 +114,7 @@ def get_production_plan_kpis(**kwargs):
 # b. Job Card KPIs
 # ---------------------------------------------------------------------------
 
-@frappe.whitelist()
-def get_job_card_kpis(**kwargs):
+def get_standard_get_job_card_kpis(**kwargs):
     f = _parse_filters(kwargs)
     where, vals = _jc_conditions(f)
 
@@ -157,8 +155,7 @@ def get_job_card_kpis(**kwargs):
 # c. Production Plan Summary (table)
 # ---------------------------------------------------------------------------
 
-@frappe.whitelist()
-def get_production_plan_summary(**kwargs):
+def get_standard_get_production_plan_summary(**kwargs):
     f = _parse_filters(kwargs)
     where, vals = _plan_conditions(f)
 
@@ -189,8 +186,7 @@ def get_production_plan_summary(**kwargs):
 # d. Item-wise Planned vs Produced
 # ---------------------------------------------------------------------------
 
-@frappe.whitelist()
-def get_item_wise_planned_vs_produced(**kwargs):
+def get_standard_get_item_wise_planned_vs_produced(**kwargs):
     f = _parse_filters(kwargs)
     where, vals = _plan_conditions(f)
 
@@ -219,8 +215,7 @@ def get_item_wise_planned_vs_produced(**kwargs):
 # e. Material Request Status per Plan
 # ---------------------------------------------------------------------------
 
-@frappe.whitelist()
-def get_material_request_status_per_plan(**kwargs):
+def get_standard_get_material_request_status_per_plan(**kwargs):
     f = _parse_filters(kwargs)
     where, vals = _plan_conditions(f)
 
@@ -244,8 +239,7 @@ def get_material_request_status_per_plan(**kwargs):
 # f. Work Order Status per Plan
 # ---------------------------------------------------------------------------
 
-@frappe.whitelist()
-def get_work_order_status_per_plan(**kwargs):
+def get_standard_get_work_order_status_per_plan(**kwargs):
     f = _parse_filters(kwargs)
     where, vals = _plan_conditions(f)
 
@@ -269,8 +263,7 @@ def get_work_order_status_per_plan(**kwargs):
 # g. Raw Material Requirement vs Stock vs Shortage
 # ---------------------------------------------------------------------------
 
-@frappe.whitelist()
-def get_raw_material_requirement(**kwargs):
+def get_standard_get_raw_material_requirement(**kwargs):
     f = _parse_filters(kwargs)
     where, vals = _plan_conditions(f)
 
@@ -315,8 +308,7 @@ def get_raw_material_requirement(**kwargs):
 # h. Lead Time / Delay Report
 # ---------------------------------------------------------------------------
 
-@frappe.whitelist()
-def get_lead_time_delay_report(**kwargs):
+def get_standard_get_lead_time_delay_report(**kwargs):
     f = _parse_filters(kwargs)
     where, vals = _plan_conditions(f)
 
@@ -350,8 +342,7 @@ def get_lead_time_delay_report(**kwargs):
 # i. Job Card Status Report
 # ---------------------------------------------------------------------------
 
-@frappe.whitelist()
-def get_job_card_status_report(**kwargs):
+def get_standard_get_job_card_status_report(**kwargs):
     f = _parse_filters(kwargs)
     where, vals = _jc_conditions(f)
 
@@ -380,8 +371,7 @@ def get_job_card_status_report(**kwargs):
 # j. Operation-wise Progress
 # ---------------------------------------------------------------------------
 
-@frappe.whitelist()
-def get_operation_wise_progress(**kwargs):
+def get_standard_get_operation_wise_progress(**kwargs):
     f = _parse_filters(kwargs)
     where, vals = _jc_conditions(f)
 
@@ -409,8 +399,7 @@ def get_operation_wise_progress(**kwargs):
 # k. Job Card Time Tracking
 # ---------------------------------------------------------------------------
 
-@frappe.whitelist()
-def get_job_card_time_tracking(**kwargs):
+def get_standard_get_job_card_time_tracking(**kwargs):
     f = _parse_filters(kwargs)
     where, vals = _jc_conditions(f)
 
@@ -439,8 +428,7 @@ def get_job_card_time_tracking(**kwargs):
 # l. Workstation Utilization
 # ---------------------------------------------------------------------------
 
-@frappe.whitelist()
-def get_workstation_utilization(**kwargs):
+def get_standard_get_workstation_utilization(**kwargs):
     f = _parse_filters(kwargs)
     where, vals = _jc_conditions(f)
 
@@ -464,8 +452,7 @@ def get_workstation_utilization(**kwargs):
 # m. Delayed Job Cards
 # ---------------------------------------------------------------------------
 
-@frappe.whitelist()
-def get_delayed_job_cards(**kwargs):
+def get_standard_get_delayed_job_cards(**kwargs):
     f = _parse_filters(kwargs)
     where, vals = _jc_conditions(f)
     vals["today_d"] = today()
@@ -496,8 +483,7 @@ def get_delayed_job_cards(**kwargs):
 # n. Plan → Work Order → Job Card Drill-down (nested)
 # ---------------------------------------------------------------------------
 
-@frappe.whitelist()
-def get_plan_workorder_jobcard_drilldown(**kwargs):
+def get_standard_get_plan_workorder_jobcard_drilldown(**kwargs):
     f = _parse_filters(kwargs)
     where, vals = _plan_conditions(f)
 
@@ -590,8 +576,7 @@ def get_plan_workorder_jobcard_drilldown(**kwargs):
 # o. Chart — Plan Status Distribution (donut)
 # ---------------------------------------------------------------------------
 
-@frappe.whitelist()
-def get_chart_plan_status_distribution(**kwargs):
+def get_standard_get_chart_plan_status_distribution(**kwargs):
     f = _parse_filters(kwargs)
     where, vals = _plan_conditions(f)
 
@@ -607,8 +592,7 @@ def get_chart_plan_status_distribution(**kwargs):
 # p. Chart — Production Trend (monthly planned vs produced, line)
 # ---------------------------------------------------------------------------
 
-@frappe.whitelist()
-def get_chart_production_trend(**kwargs):
+def get_standard_get_chart_production_trend(**kwargs):
     f = _parse_filters(kwargs)
     where, vals = _plan_conditions(f)
 
@@ -628,8 +612,7 @@ def get_chart_production_trend(**kwargs):
 # q. Chart — Job Card Status Distribution (donut)
 # ---------------------------------------------------------------------------
 
-@frappe.whitelist()
-def get_chart_jobcard_status_distribution(**kwargs):
+def get_standard_get_chart_jobcard_status_distribution(**kwargs):
     f = _parse_filters(kwargs)
     where, vals = _jc_conditions(f)
 
@@ -646,8 +629,7 @@ def get_chart_jobcard_status_distribution(**kwargs):
 # r. Chart — Workstation Load by status (bar)
 # ---------------------------------------------------------------------------
 
-@frappe.whitelist()
-def get_chart_workstation_load(**kwargs):
+def get_standard_get_chart_workstation_load(**kwargs):
     f = _parse_filters(kwargs)
     where, vals = _jc_conditions(f)
 
@@ -665,8 +647,7 @@ def get_chart_workstation_load(**kwargs):
 # s. Chart — Job Card Throughput (completed per day/week, line)
 # ---------------------------------------------------------------------------
 
-@frappe.whitelist()
-def get_chart_jobcard_throughput(**kwargs):
+def get_standard_get_chart_jobcard_throughput(**kwargs):
     f = _parse_filters(kwargs)
     where, vals = _jc_conditions(f)
     granularity = kwargs.get("granularity", "day")
@@ -684,4 +665,616 @@ def get_chart_jobcard_throughput(**kwargs):
         GROUP BY period ORDER BY period ASC
     """, vals, as_dict=True)
 
+    return {"label": label, "data": data}
+
+# ---------------------------------------------------------------------------
+# ABSTRA ABSTRACTION LAYER
+# ---------------------------------------------------------------------------
+
+def is_abstra():
+    return frappe.db.exists("DocType", "Job Card Header")
+
+JCH_STATUS_CASE = """
+    CASE 
+        WHEN jc.is_completed = 1 THEN 'Completed'
+        WHEN jc.is_completed = 0 AND jc.is_timer_running = 1 THEN 'Work In Progress'
+        WHEN jc.is_completed = 0 AND jc.is_timer_running = 0 AND IFNULL(jc.elapsed_ms, 0) > 0 THEN 'On Hold'
+        ELSE 'Open'
+    END
+"""
+
+def _jch_conditions(filters):
+    conds = ["jc.docstatus < 2"]
+    vals = {}
+    if filters.get("from_date"):
+        conds.append("DATE(jc.creation) >= %(from_date)s")
+        vals["from_date"] = filters["from_date"]
+    if filters.get("to_date"):
+        conds.append("DATE(jc.creation) <= %(to_date)s")
+        vals["to_date"] = filters["to_date"]
+    if filters.get("workstation"):
+        conds.append("jc.machine = %(workstation)s")
+        vals["workstation"] = filters["workstation"]
+    if filters.get("status"):
+        status = filters["status"]
+        if status == "Completed":
+            conds.append("jc.is_completed = 1")
+        elif status == "Work In Progress":
+            conds.append("(jc.is_completed = 0 AND jc.is_timer_running = 1)")
+        elif status == "On Hold":
+            conds.append("(jc.is_completed = 0 AND jc.is_timer_running = 0 AND IFNULL(jc.elapsed_ms, 0) > 0)")
+        elif status == "Open":
+            conds.append("(jc.is_completed = 0 AND jc.is_timer_running = 0 AND IFNULL(jc.elapsed_ms, 0) = 0)")
+    if filters.get("production_plan"):
+        conds.append("jc.production_plan_no = %(production_plan)s")
+        vals["production_plan"] = filters["production_plan"]
+    return " AND ".join(conds), vals
+
+@frappe.whitelist()
+def get_production_plan_kpis(**kwargs):
+    if not is_abstra(): return get_standard_production_plan_kpis(**kwargs)
+    f = _parse_filters(kwargs)
+    where, vals = _plan_conditions(f)
+    
+    row = frappe.db.sql(f"""
+        SELECT
+            COUNT(DISTINCT pp.name) AS active_plans,
+            SUM(poi.planned_qty)    AS planned_qty,
+            SUM(CASE WHEN pp.status = 'Delayed' THEN 1 ELSE 0 END) AS delayed_plans
+        FROM `tabProduction Plan` pp
+        LEFT JOIN `tabProduction Plan Item` poi ON poi.parent = pp.name
+        WHERE {where}
+    """, vals, as_dict=True)
+    
+    kpi = row[0] if row else {}
+    planned = flt(kpi.get("planned_qty"))
+    
+    prod = frappe.db.sql(f"""
+        SELECT SUM(sed.qty) AS produced_qty
+        FROM `tabProduction Plan` pp
+        INNER JOIN `tabProduction Plan Item` poi ON poi.parent = pp.name
+        INNER JOIN `tabStock Entry` se ON se.custom_production_planning_no = pp.name AND se.docstatus = 1
+        INNER JOIN `tabStock Entry Detail` sed ON sed.parent = se.name AND sed.is_finished_item = 1 AND sed.item_code = poi.item_code
+        WHERE {where}
+    """, vals, as_dict=True)
+    produced = flt(prod[0].produced_qty) if prod else 0.0
+    pct = round((produced / planned * 100), 2) if planned else 0.0
+
+    mr_cond = ""
+    if f.get("from_date"):
+        mr_cond += " AND mr.transaction_date >= %(from_date)s"
+    if f.get("to_date"):
+        mr_cond += " AND mr.transaction_date <= %(to_date)s"
+    open_mr = frappe.db.sql(f"""
+        SELECT COUNT(DISTINCT mr.name) AS cnt
+        FROM `tabMaterial Request` mr
+        WHERE mr.docstatus = 1 AND mr.material_request_type = 'Manufacture'
+          AND mr.status NOT IN ('Stopped','Cancelled','Transferred') {mr_cond}
+    """, vals, as_dict=True)
+
+    return {
+        "active_plans": cint(kpi.get("active_plans")),
+        "planned_qty": planned,
+        "produced_qty": produced,
+        "completion_pct": pct,
+        "delayed_plans": cint(kpi.get("delayed_plans")),
+        "open_mrs": cint(open_mr[0].get("cnt") if open_mr else 0),
+    }
+
+@frappe.whitelist()
+def get_job_card_kpis(**kwargs):
+    if not is_abstra(): return get_standard_job_card_kpis(**kwargs)
+    f = _parse_filters(kwargs)
+    where, vals = _jch_conditions(f)
+    
+    week_start = frappe.utils.get_first_day_of_week(today())
+    vals["week_start"] = week_start
+    vals["today"] = today()
+
+    rows = frappe.db.sql(f"""
+        SELECT
+            SUM(CASE WHEN jc.is_completed = 0 AND jc.is_timer_running = 0 AND IFNULL(jc.elapsed_ms, 0) = 0 THEN 1 ELSE 0 END) AS open_count,
+            SUM(CASE WHEN jc.is_completed = 0 AND jc.is_timer_running = 1 THEN 1 ELSE 0 END) AS wip_count,
+            SUM(CASE WHEN jc.is_completed = 0 AND jc.is_timer_running = 0 AND IFNULL(jc.elapsed_ms, 0) > 0 THEN 1 ELSE 0 END) AS on_hold_count,
+            SUM(CASE WHEN jc.is_completed = 1 AND DATE(jc.modified) >= %(week_start)s THEN 1 ELSE 0 END) AS completed_this_week,
+            SUM(CASE WHEN jc.is_completed = 0 AND pp.expected_delivery_date < %(today)s THEN 1 ELSE 0 END) AS overdue_count,
+            AVG(jc.elapsed_ms / 60000.0) AS avg_minutes
+        FROM `tabJob Card Header` jc
+        LEFT JOIN `tabProduction Plan` pp ON pp.name = jc.production_plan_no
+        WHERE {where}
+    """, vals, as_dict=True)
+    
+    r = rows[0] if rows else {}
+    avg_min = flt(r.get("avg_minutes"))
+    avg_hrs = round(avg_min / 60, 2) if avg_min else 0.0
+
+    return {
+        "open": cint(r.get("open_count")),
+        "work_in_progress": cint(r.get("wip_count")),
+        "on_hold": cint(r.get("on_hold_count")),
+        "completed_this_week": cint(r.get("completed_this_week")),
+        "overdue": cint(r.get("overdue_count")),
+        "avg_completion_hrs": avg_hrs,
+    }
+
+@frappe.whitelist()
+def get_production_plan_summary(**kwargs):
+    if not is_abstra(): return get_standard_production_plan_summary(**kwargs)
+    f = _parse_filters(kwargs)
+    where, vals = _plan_conditions(f)
+
+    data = frappe.db.sql(f"""
+        SELECT
+            pp.name            AS plan,
+            pp.status          AS status,
+            SUM(poi.planned_qty)   AS planned_qty,
+            pp.posting_date    AS planned_start_date,
+            pp.expected_delivery_date AS planned_end_date
+        FROM `tabProduction Plan` pp
+        LEFT JOIN `tabProduction Plan Item` poi ON poi.parent = pp.name
+        WHERE {where}
+        GROUP BY pp.name
+        ORDER BY pp.posting_date DESC
+    """, vals, as_dict=True)
+    
+    for r in data:
+        prod = frappe.db.sql(f"""
+            SELECT SUM(sed.qty) AS produced_qty
+            FROM `tabProduction Plan Item` poi
+            INNER JOIN `tabStock Entry` se ON se.custom_production_planning_no = poi.parent AND se.docstatus = 1
+            INNER JOIN `tabStock Entry Detail` sed ON sed.parent = se.name AND sed.is_finished_item = 1 AND sed.item_code = poi.item_code
+            WHERE poi.parent = %s
+        """, r["plan"], as_dict=True)
+        r["produced_qty"] = flt(prod[0].produced_qty) if prod else 0.0
+        planned = flt(r.get("planned_qty"))
+        r["completion_pct"] = round((r["produced_qty"] / planned * 100), 2) if planned else 0.0
+
+    return data
+
+@frappe.whitelist()
+def get_item_wise_planned_vs_produced(**kwargs):
+    if not is_abstra(): return get_standard_item_wise_planned_vs_produced(**kwargs)
+    f = _parse_filters(kwargs)
+    where, vals = _plan_conditions(f)
+    
+    data = frappe.db.sql(f"""
+        SELECT
+            poi.item_code,
+            i.item_name,
+            SUM(poi.planned_qty)  AS planned_qty
+        FROM `tabProduction Plan` pp
+        INNER JOIN `tabProduction Plan Item` poi ON poi.parent = pp.name
+        LEFT JOIN `tabItem` i ON i.name = poi.item_code
+        WHERE {where}
+        GROUP BY poi.item_code, i.item_name
+        ORDER BY planned_qty DESC
+    """, vals, as_dict=True)
+
+    prod_data = frappe.db.sql(f"""
+        SELECT poi.item_code, SUM(sed.qty) AS produced_qty
+        FROM `tabProduction Plan` pp
+        INNER JOIN `tabProduction Plan Item` poi ON poi.parent = pp.name
+        INNER JOIN `tabStock Entry` se ON se.custom_production_planning_no = pp.name AND se.docstatus = 1
+        INNER JOIN `tabStock Entry Detail` sed ON sed.parent = se.name AND sed.is_finished_item = 1 AND sed.item_code = poi.item_code
+        WHERE {where}
+        GROUP BY poi.item_code
+    """, vals, as_dict=True)
+    
+    prod_map = {p.item_code: flt(p.produced_qty) for p in prod_data}
+
+    for r in data:
+        r["produced_qty"] = prod_map.get(r["item_code"], 0.0)
+        p = flt(r.get("planned_qty"))
+        r["completion_pct"] = round(r["produced_qty"] / p * 100, 2) if p else 0.0
+
+    return data
+
+@frappe.whitelist()
+def get_material_request_status_per_plan(**kwargs):
+    return get_standard_material_request_status_per_plan(**kwargs)
+
+@frappe.whitelist()
+def get_work_order_status_per_plan(**kwargs):
+    if not is_abstra(): return get_standard_work_order_status_per_plan(**kwargs)
+    return []
+
+@frappe.whitelist()
+def get_raw_material_requirement(**kwargs):
+    if not is_abstra(): return get_standard_raw_material_requirement(**kwargs)
+    f = _parse_filters(kwargs)
+    where, vals = _plan_conditions(f)
+
+    if f.get("warehouse"):
+        bin_cond = "AND b.warehouse = %(warehouse)s"
+        vals["warehouse"] = f["warehouse"]
+    else:
+        bin_cond = ""
+
+    data = frappe.db.sql(f"""
+        SELECT
+            mri.item_code,
+            mri.item_name,
+            SUM(mri.required_qty)  AS required_qty,
+            COALESCE(SUM(b.actual_qty), 0) AS in_stock
+        FROM `tabProduction Plan` pp
+        INNER JOIN `tabMaterial Request Plan Item` mri ON mri.parent = pp.name
+        LEFT JOIN `tabBin` b ON b.item_code = mri.item_code {bin_cond}
+        WHERE {where}
+        GROUP BY mri.item_code, mri.item_name
+        HAVING required_qty > 0
+    """, vals, as_dict=True)
+
+    res_data = frappe.db.sql(f"""
+        SELECT sed.item_code, SUM(sed.qty) as reserved_qty
+        FROM `tabProduction Plan` pp
+        INNER JOIN `tabStock Entry Detail` sed ON sed.custom_ref_docname = pp.name AND sed.custom_ref_doctype = 'Production Plan'
+        INNER JOIN `tabStock Entry` se ON se.name = sed.parent AND se.docstatus = 1
+        WHERE {where}
+        GROUP BY sed.item_code
+    """, vals, as_dict=True)
+    res_map = {r.item_code: flt(r.reserved_qty) for r in res_data}
+
+    show_cost = frappe.has_permission("Work Order", "read") and frappe.db.exists(
+        "Has Role", {"parent": frappe.session.user, "role": "Manufacturing Manager"}
+    )
+    
+    for r in data:
+        reserved = res_map.get(r["item_code"], 0.0)
+        r["shortage_qty"] = max(0, flt(r["required_qty"]) - flt(r["in_stock"]) - reserved)
+        
+        if show_cost:
+            valuation = flt(frappe.db.get_value("Item", r["item_code"], "last_purchase_rate") or 0)
+            r["shortage_value"] = round(r["shortage_qty"] * valuation, 2)
+        else:
+            r["shortage_value"] = None
+
+    data.sort(key=lambda x: x["shortage_qty"], reverse=True)
+    return data
+
+@frappe.whitelist()
+def get_lead_time_delay_report(**kwargs):
+    if not is_abstra(): return get_standard_lead_time_delay_report(**kwargs)
+    f = _parse_filters(kwargs)
+    where, vals = _plan_conditions(f)
+
+    data = frappe.db.sql(f"""
+        SELECT
+            pp.name            AS production_plan,
+            pp.posting_date    AS planned_start,
+            pp.expected_delivery_date AS planned_end,
+            MIN(jc.start_time) AS actual_start,
+            MAX(CASE WHEN jc.is_completed = 1 THEN jc.modified ELSE NULL END) AS actual_end
+        FROM `tabProduction Plan` pp
+        LEFT JOIN `tabJob Card Header` jc ON jc.production_plan_no = pp.name AND jc.docstatus < 2
+        WHERE {where}
+        GROUP BY pp.name
+        ORDER BY pp.posting_date DESC
+    """, vals, as_dict=True)
+
+    for r in data:
+        planned_days = date_diff(r.get("planned_end"), r.get("planned_start")) if r.get("planned_end") and r.get("planned_start") else None
+        actual_days = date_diff(r.get("actual_end"), r.get("actual_start")) if r.get("actual_end") and r.get("actual_start") else None
+        r["planned_lead_days"] = planned_days
+        r["actual_lead_days"] = actual_days
+        r["delay_days"] = max(0, (actual_days or 0) - (planned_days or 0)) if planned_days is not None else None
+
+    return data
+
+@frappe.whitelist()
+def get_job_card_status_report(**kwargs):
+    if not is_abstra(): return get_standard_job_card_status_report(**kwargs)
+    f = _parse_filters(kwargs)
+    where, vals = _jch_conditions(f)
+
+    data = frappe.db.sql(f"""
+        SELECT
+            jc.name           AS job_card,
+            ''                AS work_order,
+            jc.operation,
+            jc.machine        AS workstation,
+            ''                AS employee,
+            {JCH_STATUS_CASE} AS status,
+            jc.start_time     AS actual_start_date,
+            CASE WHEN jc.is_completed = 1 THEN jc.modified ELSE NULL END AS actual_end_date,
+            (SELECT SUM(production_qty) FROM `tabJob Card Item Details` WHERE parent = jc.name) AS planned_qty,
+            (SELECT SUM(final_completed_qty) FROM `tabJob Card Item Details` WHERE parent = jc.name) AS completed_qty,
+            'Job Card Header' AS jc_doctype
+        FROM `tabJob Card Header` jc
+        WHERE {where}
+        ORDER BY jc.creation DESC
+    """, vals, as_dict=True)
+
+    return data
+
+@frappe.whitelist()
+def get_operation_wise_progress(**kwargs):
+    if not is_abstra(): return get_standard_operation_wise_progress(**kwargs)
+    f = _parse_filters(kwargs)
+    where, vals = _jch_conditions(f)
+
+    data = frappe.db.sql(f"""
+        SELECT
+            jc.operation,
+            COUNT(jc.name)                                               AS total_jc,
+            SUM(CASE WHEN jc.is_completed = 1 THEN 1 ELSE 0 END)         AS completed,
+            SUM(CASE WHEN jc.is_completed = 0 THEN 1 ELSE 0 END)         AS pending
+        FROM `tabJob Card Header` jc
+        WHERE {where}
+        GROUP BY jc.operation
+        ORDER BY total_jc DESC
+    """, vals, as_dict=True)
+
+    for r in data:
+        total = cint(r.get("total_jc"))
+        r["completion_pct"] = round(cint(r.get("completed")) / total * 100, 2) if total else 0.0
+
+    return data
+
+@frappe.whitelist()
+def get_job_card_time_tracking(**kwargs):
+    if not is_abstra(): return get_standard_job_card_time_tracking(**kwargs)
+    f = _parse_filters(kwargs)
+    where, vals = _jch_conditions(f)
+    
+    data = frappe.db.sql(f"""
+        SELECT
+            jc.name        AS job_card,
+            ''             AS work_order,
+            jc.operation,
+            jc.machine     AS workstation,
+            ''             AS employee,
+            jc.start_time  AS from_time,
+            CASE WHEN jc.is_completed = 1 THEN jc.modified ELSE NULL END AS to_time,
+            (SELECT SUM(final_completed_qty) FROM `tabJob Card Item Details` WHERE parent = jc.name) AS completed_qty,
+            ROUND(jc.elapsed_ms / (1000 * 60.0 * 60.0), 2) AS hours_worked,
+            'Job Card Header' AS jc_doctype
+        FROM `tabJob Card Header` jc
+        WHERE {where} AND IFNULL(jc.elapsed_ms, 0) > 0
+        ORDER BY jc.modified DESC
+    """, vals, as_dict=True)
+
+    return data
+
+@frappe.whitelist()
+def get_workstation_utilization(**kwargs):
+    if not is_abstra(): return get_standard_workstation_utilization(**kwargs)
+    f = _parse_filters(kwargs)
+    where, vals = _jch_conditions(f)
+
+    data = frappe.db.sql(f"""
+        SELECT
+            IFNULL(jc.machine, 'Unassigned') AS workstation,
+            COUNT(DISTINCT jc.name) AS jc_count,
+            ROUND(SUM(IFNULL(jc.elapsed_ms, 0)) / (1000 * 60.0 * 60.0), 2) AS total_hours
+        FROM `tabJob Card Header` jc
+        WHERE {where} AND IFNULL(jc.elapsed_ms, 0) > 0
+        GROUP BY jc.machine
+        ORDER BY total_hours DESC
+    """, vals, as_dict=True)
+
+    return data
+
+@frappe.whitelist()
+def get_delayed_job_cards(**kwargs):
+    if not is_abstra(): return get_standard_delayed_job_cards(**kwargs)
+    f = _parse_filters(kwargs)
+    where, vals = _jch_conditions(f)
+    vals["today_d"] = today()
+
+    data = frappe.db.sql(f"""
+        SELECT
+            jc.name        AS job_card,
+            ''             AS work_order,
+            jc.operation,
+            jc.machine     AS workstation,
+            ''             AS employee,
+            {JCH_STATUS_CASE} AS status,
+            pp.expected_delivery_date AS planned_end_date,
+            DATEDIFF(%(today_d)s, pp.expected_delivery_date) AS delay_days,
+            'Job Card Header' AS jc_doctype
+        FROM `tabJob Card Header` jc
+        LEFT JOIN `tabProduction Plan` pp ON pp.name = jc.production_plan_no
+        WHERE {where}
+          AND jc.is_completed = 0
+          AND pp.expected_delivery_date IS NOT NULL
+          AND pp.expected_delivery_date < %(today_d)s
+        ORDER BY delay_days DESC
+    """, vals, as_dict=True)
+
+    return data
+
+@frappe.whitelist()
+def get_plan_workorder_jobcard_drilldown(**kwargs):
+    if not is_abstra(): return get_standard_plan_workorder_jobcard_drilldown(**kwargs)
+    f = _parse_filters(kwargs)
+    where, vals = _plan_conditions(f)
+
+    plans = frappe.db.sql(f"""
+        SELECT pp.name AS plan, pp.status,
+               SUM(poi.planned_qty) as total_planned_qty
+        FROM `tabProduction Plan` pp
+        LEFT JOIN `tabProduction Plan Item` poi ON poi.parent = pp.name
+        WHERE {where}
+        GROUP BY pp.name
+        ORDER BY pp.posting_date DESC
+        LIMIT 100
+    """, vals, as_dict=True)
+
+    if not plans: return []
+    plan_names = [p["plan"] for p in plans]
+    
+    items = frappe.db.sql("""
+        SELECT poi.parent AS plan, poi.item_code, i.item_name,
+               SUM(poi.planned_qty) as planned_qty
+        FROM `tabProduction Plan Item` poi
+        LEFT JOIN `tabItem` i ON i.name = poi.item_code
+        WHERE poi.parent IN %(plans)s
+        GROUP BY poi.parent, poi.item_code
+    """, {"plans": plan_names}, as_dict=True)
+    
+    for it in items:
+        prod = frappe.db.sql("""
+            SELECT SUM(sed.qty) AS qty
+            FROM `tabStock Entry` se
+            JOIN `tabStock Entry Detail` sed ON sed.parent = se.name
+            WHERE se.custom_production_planning_no = %s AND se.docstatus = 1
+              AND sed.is_finished_item = 1 AND sed.item_code = %s
+        """, (it["plan"], it["item_code"]), as_dict=True)
+        it["produced_qty"] = flt(prod[0].qty) if prod else 0.0
+
+    for p in plans:
+        p["total_produced_qty"] = sum(it["produced_qty"] for it in items if it["plan"] == p["plan"])
+    
+    jc_data = frappe.db.sql(f"""
+        SELECT jc.name AS job_card, jc.production_plan_no,
+               jc.operation, jc.machine AS workstation, {JCH_STATUS_CASE} AS status,
+               jc.start_time AS actual_start_date, CASE WHEN jc.is_completed = 1 THEN jc.modified ELSE NULL END AS actual_end_date,
+               (SELECT item_code FROM `tabJob Card Item Details` WHERE parent = jc.name LIMIT 1) as fg_item_code,
+               (SELECT SUM(production_qty) FROM `tabJob Card Item Details` WHERE parent = jc.name) AS for_quantity,
+               (SELECT SUM(final_completed_qty) FROM `tabJob Card Item Details` WHERE parent = jc.name) AS total_completed_qty,
+               'Job Card Header' AS jc_doctype
+        FROM `tabJob Card Header` jc
+        WHERE jc.production_plan_no IN %(plans)s AND jc.docstatus < 2
+        ORDER BY jc.production_plan_no, jc.name
+    """, {"plans": plan_names}, as_dict=True)
+
+    mat_data = frappe.db.sql("""
+        SELECT mri.parent AS plan, mri.item_code, mri.item_name,
+               mri.required_qty,
+               IFNULL(b.actual_qty, 0) AS actual_qty
+        FROM `tabMaterial Request Plan Item` mri
+        LEFT JOIN `tabBin` b ON b.item_code = mri.item_code
+        WHERE mri.parent IN %(plans)s
+    """, {"plans": plan_names}, as_dict=True)
+    
+    res_data = frappe.db.sql("""
+        SELECT sed.custom_ref_docname AS plan, sed.item_code, SUM(sed.qty) AS transferred_qty
+        FROM `tabStock Entry Detail` sed
+        JOIN `tabStock Entry` se ON se.name = sed.parent
+        WHERE sed.custom_ref_doctype = 'Production Plan' AND sed.custom_ref_docname IN %(plans)s AND se.docstatus = 1
+        GROUP BY sed.custom_ref_docname, sed.item_code
+    """, {"plans": plan_names}, as_dict=True)
+    
+    mat_list = []
+    for m in mat_data:
+        m["transferred_qty"] = sum(r["transferred_qty"] for r in res_data if r["plan"] == m["plan"] and r["item_code"] == m["item_code"])
+        mat_list.append(m)
+
+    for it in items:
+        plan = it["plan"]
+        fg_item = it["item_code"]
+        
+        mock_wo = {
+            "is_mock": 1,
+            "work_order": f"Item: {fg_item}",
+            "plan": plan,
+            "item_code": fg_item,
+            "status": "In Process",
+            "qty": it["planned_qty"],
+            "produced_qty": it["produced_qty"],
+            "planned_start_date": None,
+            "planned_end_date": None,
+            "job_cards": [],
+            "materials": [m for m in mat_list if m["plan"] == plan]
+        }
+        
+        for jc in jc_data:
+            if jc["production_plan_no"] == plan and jc["fg_item_code"] == fg_item:
+                mock_wo["job_cards"].append(jc)
+                
+        it["work_orders"] = [mock_wo]
+
+    for p in plans:
+        p["items"] = [it for it in items if it["plan"] == p["plan"]]
+
+    return plans
+
+@frappe.whitelist()
+def get_chart_plan_status_distribution(**kwargs):
+    if not is_abstra(): return get_standard_chart_plan_status_distribution(**kwargs)
+    f = _parse_filters(kwargs)
+    where, vals = _plan_conditions(f)
+    return frappe.db.sql(f"""
+        SELECT pp.status, COUNT(pp.name) AS count
+        FROM `tabProduction Plan` pp
+        WHERE {where}
+        GROUP BY pp.status ORDER BY count DESC
+    """, vals, as_dict=True)
+
+@frappe.whitelist()
+def get_chart_production_trend(**kwargs):
+    if not is_abstra(): return get_standard_chart_production_trend(**kwargs)
+    f = _parse_filters(kwargs)
+    where, vals = _plan_conditions(f)
+
+    data = frappe.db.sql(f"""
+        SELECT
+            DATE_FORMAT(pp.posting_date, '%%Y-%%m') AS month,
+            pp.name AS plan,
+            poi.item_code,
+            poi.planned_qty
+        FROM `tabProduction Plan` pp
+        INNER JOIN `tabProduction Plan Item` poi ON poi.parent = pp.name
+        WHERE {where}
+    """, vals, as_dict=True)
+    
+    res = {}
+    for r in data:
+        m = r["month"]
+        if m not in res:
+            res[m] = {"month": m, "planned_qty": 0.0, "produced_qty": 0.0}
+        res[m]["planned_qty"] += flt(r["planned_qty"])
+        
+        prod = frappe.db.sql("""
+            SELECT SUM(sed.qty) AS qty
+            FROM `tabStock Entry` se
+            JOIN `tabStock Entry Detail` sed ON sed.parent = se.name
+            WHERE se.custom_production_planning_no = %s AND se.docstatus = 1
+              AND sed.is_finished_item = 1 AND sed.item_code = %s
+        """, (r["plan"], r["item_code"]), as_dict=True)
+        res[m]["produced_qty"] += flt(prod[0].qty) if prod else 0.0
+
+    return sorted(list(res.values()), key=lambda x: x["month"])
+
+@frappe.whitelist()
+def get_chart_jobcard_status_distribution(**kwargs):
+    if not is_abstra(): return get_standard_chart_jobcard_status_distribution(**kwargs)
+    f = _parse_filters(kwargs)
+    where, vals = _jch_conditions(f)
+    return frappe.db.sql(f"""
+        SELECT {JCH_STATUS_CASE} AS status, COUNT(jc.name) AS count
+        FROM `tabJob Card Header` jc
+        WHERE {where}
+        GROUP BY status ORDER BY count DESC
+    """, vals, as_dict=True)
+
+@frappe.whitelist()
+def get_chart_workstation_load(**kwargs):
+    if not is_abstra(): return get_standard_chart_workstation_load(**kwargs)
+    f = _parse_filters(kwargs)
+    where, vals = _jch_conditions(f)
+    return frappe.db.sql(f"""
+        SELECT IFNULL(jc.machine, 'Unassigned') AS workstation, {JCH_STATUS_CASE} AS status, COUNT(jc.name) AS jc_count
+        FROM `tabJob Card Header` jc
+        WHERE {where}
+        GROUP BY workstation, status
+        ORDER BY workstation, status
+    """, vals, as_dict=True)
+
+@frappe.whitelist()
+def get_chart_jobcard_throughput(**kwargs):
+    if not is_abstra(): return get_standard_chart_jobcard_throughput(**kwargs)
+    f = _parse_filters(kwargs)
+    where, vals = _jch_conditions(f)
+    granularity = kwargs.get("granularity", "day")
+    fmt = "%%Y-%%m-%%d" if granularity == "day" else "%%Y-%%u"
+    label = "day" if granularity == "day" else "week"
+    data = frappe.db.sql(f"""
+        SELECT
+            DATE_FORMAT(jc.modified, '{fmt}') AS period,
+            COUNT(jc.name) AS completed_count
+        FROM `tabJob Card Header` jc
+        WHERE {where} AND jc.is_completed = 1
+        GROUP BY period ORDER BY period ASC
+    """, vals, as_dict=True)
     return {"label": label, "data": data}

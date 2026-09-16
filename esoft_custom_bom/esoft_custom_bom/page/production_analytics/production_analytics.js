@@ -472,8 +472,8 @@ frappe.pages["production-analytics"].on_page_load = function (wrapper) {
             $("#delayed-jc-count").text(rows.length ? rows.length+" delayed" : "");
             let tbody = rows.map(x => `
                 <tr class="${x.delay_days > 7 ? 'pd-row-danger' : 'pd-row-warning'}">
-                    <td><a onclick="frappe.set_route('Form','Job Card','${x.job_card}')">${x.job_card}</a></td>
-                    <td><a onclick="frappe.set_route('Form','Work Order','${x.work_order||""}')">${x.work_order||""}</a></td>
+                    <td><a onclick="frappe.set_route('Form','${x.jc_doctype||'Job Card'}','${x.job_card}')">${x.job_card}</a></td>
+                    <td>${x.work_order ? `<a onclick="frappe.set_route('Form','Work Order','${x.work_order}')">${x.work_order}</a>` : ''}</td>
                     <td>${x.operation||""}</td><td>${x.workstation||""}</td><td>${x.employee||""}</td>
                     <td><span class="pd-status-badge ${status_cls(x.status)}">${x.status}</span></td>
                     <td>${x.planned_end_date||""}</td>
@@ -512,7 +512,7 @@ frappe.pages["production-analytics"].on_page_load = function (wrapper) {
                             let jc_pct = jc.for_quantity ? (jc.total_completed_qty / jc.for_quantity * 100) : 0;
                             return `
                                 <div class="pd-node pd-node-jc">
-                                    <div class="pd-node-header" onclick="frappe.set_route('Form','Job Card','${jc.job_card}')">
+                                    <div class="pd-node-header" onclick="frappe.set_route('Form','${jc.jc_doctype||'Job Card'}','${jc.job_card}')">
                                         <div class="pd-node-title">
                                             <span class="pd-icon">↳</span>
                                             <span class="pd-name">${jc.job_card}</span>
@@ -553,7 +553,7 @@ frappe.pages["production-analytics"].on_page_load = function (wrapper) {
                                 <div class="pd-node-header" onclick="pd_toggle('jcg-${safe_wo}')">
                                     <div class="pd-node-title">
                                         <span class="pd-icon">▶</span>
-                                        <span class="pd-name"><a onclick="event.stopPropagation();frappe.set_route('Form','Work Order','${wo.work_order}')">${wo.work_order}</a></span>
+                                        <span class="pd-name">${wo.is_mock ? wo.work_order : `<a onclick="event.stopPropagation();frappe.set_route('Form','Work Order','${wo.work_order}')">${wo.work_order}</a>`}</span>
                                         <span class="pd-status-badge ${status_cls(wo.status)}">${wo.status}</span>
                                     </div>
                                     <div class="pd-node-stats">
