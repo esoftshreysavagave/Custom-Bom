@@ -144,7 +144,8 @@ override_whitelisted_methods = {
 # Override standard doctype classes
 
 override_doctype_class = {
-    "BOM Creator": "esoft_custom_bom.custom_bom.CustomBOM"
+    "BOM Creator": "esoft_custom_bom.custom_bom.CustomBOM",
+    "Job Card": "esoft_custom_bom.overrides.job_card.CustomJobCard",
 }
 
 # Document Events
@@ -162,6 +163,9 @@ doc_events = {
     "BOM": {
         "before_validate": "esoft_custom_bom.hooks_handlers.bom.before_validate",
         "after_insert": "esoft_custom_bom.hooks_handlers.bom.after_insert"
+    },
+    "Stock Entry": {
+        "validate": "esoft_custom_bom.manufacturing.stock_entry.validate_stock_entry_upstream_qty"
     }
 }
 
